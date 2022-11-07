@@ -8,5 +8,12 @@ const api  = axios.create({
 export default {
     all(){
         return api.get('/coins/list')
+    },
+    btc(){
+        return api.get('/coins/bitcoin')
+    },
+    getCoin(){
+        return api.get('/coins/markets', {params: {"vs_currency": "usd"}})
     }
+    
 }

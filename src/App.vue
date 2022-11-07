@@ -1,39 +1,43 @@
+<template>
+  <main>
+    <div class="conteudo ">
+      <Header />
+      <Home :coin="coin" />
+    </div>
+  </main>
+</template>
+
 <script >
 import Home from './components/Home.vue';
+import Header from './components/Header.vue';
 import api from './servidor/api.js';
+
 import { onMounted, reactive, toRefs } from 'vue';
 
 export default {
   name: 'App',
   components: {
-    Home
+    Home,
+    Header
   },
   setup(){
-    const data = reactive ({
-      name: {},
+    const data = reactive({
+      coin: {},
+
     });
-    onMounted( async()=>{
-      const response = await api.all();
-      console.log(response)
-      data.name = response.data;
+    onMounted(async()=>{
+      const response = await api.getCoin();
+      console.log(response);
+      data.coin = response.data;
     })
-    return { ...toRefs(data)}
+    return {...toRefs(data)}
+
   }
 }
 </script>
 
-<template>
-  <div class="card">
-    <Home :name="name" />
-  </div>
-</template>
-
-
-
 <style scoped>
-.card{
-  padding: 25px;
-  border: 1px solid red;
-
+.conteudo{
+  background-color: rgb(10, 45, 97);
 }
 </style>
